@@ -23,4 +23,25 @@ configure(subprojects.filter { it.name == "micronaut-lambda" || it.name == "micr
             exclude(module = "groovy-all")
         }
     }
+
+    val subProjectName = name;
+    val subProjectPath = projectDir.absolutePath
+    val userHomeDir = System.getProperty("user.home")
+
+    fun slsRunInDocker(slsCommand: String) =
+        "docker run -v ${subProjectPath}:/workspace -v ${userHomeDir}/.aws:/home/appuser/.aws -w /workspace serverless-build-image /bin/bash -c \"${slsCommand}\""
+
+    tasks.register<Exec>("slsDeploy") {
+        dependsOn(":${subProjectName}:build")
+        commandLine("bash", "-c", slsRunInDocker("sls deploy -v"))
+    }
+
+    tasks.register<Exec>("slsRemove") {
+        commandLine("bash", "-c", slsRunInDocker("sls remove"))
+    }
 }
+
+tasks.register<Exec>("buildDockerImageForSls") {
+    commandLine("docker", "build", "-t", "serverless-build-image", ".")
+}
+

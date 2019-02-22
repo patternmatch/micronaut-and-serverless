@@ -79,4 +79,3 @@ tasks.withType<Jar> {
         attributes["Main-Class"] = application.mainClassName
     }
 }
-

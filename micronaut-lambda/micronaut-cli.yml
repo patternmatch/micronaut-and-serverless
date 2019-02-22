@@ -1,0 +1,5 @@
+profile: function-aws
+defaultPackage: com.patternmatch.micronaut
+---
+testFramework: spock
+sourceLanguage: kotlin

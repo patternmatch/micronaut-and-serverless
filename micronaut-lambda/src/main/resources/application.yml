@@ -1,0 +1,5 @@
+micronaut:
+    function:
+        name: micronaut-lambda
+jackson:
+    module-scan: false

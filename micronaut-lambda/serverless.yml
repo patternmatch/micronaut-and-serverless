@@ -1,0 +1,22 @@
+service: micronaut-and-serverless
+
+provider:
+  name: aws
+  runtime: java8
+  profile: serverless-admin
+  region: us-east-1
+
+package:
+  artifact: build/libs/micronaut-lambda.jar
+
+functions:
+  micronaut-lambda:
+    handler: io.micronaut.function.aws.MicronautRequestStreamHandler
+    events:
+      - http:
+          path: testendpoint
+          method: post
+          integration: lambda
+          request:
+            passThrough: NEVER
+

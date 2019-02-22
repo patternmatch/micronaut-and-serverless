@@ -1,0 +1,6 @@
+micronaut:
+    application:
+        name: micronaut-lambda-proxy
+jackson:
+    module-scan: false
+

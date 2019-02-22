@@ -1,0 +1,19 @@
+service: micronaut-and-serverless-proxy
+
+provider:
+  name: aws
+  runtime: java8
+  profile: serverless-admin
+  region: us-east-1
+
+package:
+  artifact: build/libs/micronaut-lambda-proxy.jar
+
+functions:
+  micronaut-lambda-proxy:
+    handler: com.patternmatch.micronaut.StreamLambdaHandler
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+

@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: com.patternmatch.micronaut
+---
+testFramework: spock
+sourceLanguage: kotlin

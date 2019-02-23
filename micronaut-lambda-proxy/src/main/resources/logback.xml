@@ -12,5 +12,6 @@
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
+    <logger name="com.patternmatch.micronaut" level="DEBUG"/>
 </configuration>
 

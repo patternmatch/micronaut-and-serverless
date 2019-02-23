@@ -40,6 +40,10 @@ be done automatically by Gradle.
 For convenience I created shell scripts, called `mn_lam_[prx]_[deploy|remove].sh` so 
 you don't need to craft Gradle subprojects and tasks by hand.
 
+If the only change is in Lambda function code, deployment can be optimized. Run: `./gradlew -PfunName=<function-name> :sub-project:slsDeployFunction`
+This will not recreate whole stack but only push new version of jar with new version of Lambda function.
+For convenience there are 2 scripts `mn_lam_[prx]_deploy_function.sh` - the scripts take one parameter with function name.
+
 ## Micronaut-lambda testing
 `./gradlew :micronaut-lambda:slsDeploy` tasks ends with outputting API Gateway endpoint to the console.
 It is different for each full stack deployment. An example from my run is:

@@ -99,6 +99,14 @@ configure(subprojects.filter { it.name == "micronaut-lambda" || it.name == "micr
         commandLine("bash", "-c", slsRunInDocker("sls deploy -v"))
     }
 
+    // Deploy specified function without any stack manipulations (much faster than slsDeploy)
+    // run gradle with: ./gradlew -PfunName=riposter
+    tasks.register<Exec>("slsDeployFunction") {
+        val funName: String? by project
+        dependsOn(":${subProjectName}:build")
+        commandLine("bash", "-c", slsRunInDocker("sls deploy function -f ${funName}"))
+    }
+
     // Remove all AWS resources related to deployment done by slsDeploy task
     tasks.register<Exec>("slsRemove") {
         commandLine("bash", "-c", slsRunInDocker("sls remove"))
@@ -110,4 +118,3 @@ configure(subprojects.filter { it.name == "micronaut-lambda" || it.name == "micr
 tasks.register<Exec>("buildDockerImageForSls") {
     commandLine("docker", "build", "-t", "serverless-build-image", ".")
 }
-
